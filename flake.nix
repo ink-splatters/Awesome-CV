@@ -29,8 +29,6 @@
                   markdownlint.enable = true;
                   nixpkgs-fmt.enable = true;
                   yamllint.enable = true;
-
-
                 };
 
                 settings = {
