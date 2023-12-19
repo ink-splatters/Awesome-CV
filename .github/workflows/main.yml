@@ -1,21 +1,16 @@
 name: Compile PDFs
-
 on:
-  push: {}
-  pull_request: {}
-
+  pull_request:
+  push:
 jobs:
   build:
     runs-on: ubuntu-latest
-    container: texlive/texlive:latest
-
     steps:
-    - name: Checkout repo
-      uses: actions/checkout@v4
-
-    - name: Compile
-      run: make
-
+    - uses: actions/checkout@v4
+    - uses: cachix/install-nix-action@v22
+      with:
+        github_access_token: ${{ secrets.GITHUB_TOKEN }}
+    - run: nix develop --impure --accept-flake-config --command bash -c "make"
     - uses: actions/upload-artifact@v3
       with:
         name: examples
